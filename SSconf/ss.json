@@ -1,0 +1,8 @@
+{
+  "server":"192.81.213.206",
+  "server_port":8389,
+  "local_port":1080,
+  "password":"thetea",
+  "timeout":600,
+  "method":"aes-256-cfb"
+}
