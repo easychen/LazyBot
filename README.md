@@ -11,8 +11,10 @@ robo.li 相当于一个 PHP 版的 Gulp。
 
 在 Mac 或者 Linux 的命令行下：
 
+```
    wget http://robo.li/robo.phar
    sudo chmod +x robo.phar && mv robo.phar /usr/bin/robo
+```
 
 然后就可以直接使用 robo 命令了。
 
@@ -28,4 +30,6 @@ robo.li 相当于一个 PHP 版的 Gulp。
 
 安装一个 SS 服务器：
 
+```
    robo build_shadowsocks_server
+```   
