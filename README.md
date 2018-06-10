@@ -2,8 +2,15 @@
 
 这个项目主要放置一些基于 robo.li 的日常自动化/半自动化脚本。
 
+## 直接使用
 
-## robo.li 
+```
+git clone https://github.com/easychen/lazybot
+cd lazybot
+php robo.phar  --load-from ./server/  build_shadowsocks_server
+```
+
+## 安装本地 robo.li 使用
 
 robo.li 相当于一个 PHP 版的 Gulp。
 
