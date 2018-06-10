@@ -34,6 +34,23 @@ class RoboFile extends \Robo\Tasks
     	$this->say( '完成' );	
 	}
 
+	/**
+	 * 往服务器上安装Docker 环境
+     */
+	public function installDocker()
+	{
+		$ip = $this->ask('请填写要安装Docker的远程服务器IP');
+		$user = $this->askDefault('请填写用户名' , 'ubuntu');
+		//$password = $this->ask('请填写服务器密码' , true );
+
+		$this->taskSshExec( $ip , $user )
+    		//->identityFile($ifile)
+    		->stopOnFail(true)
+    		->exec( 'wget -qO- https://get.docker.com/ | sh' )
+    		->exec( 'sudo usermod -aG docker $(whoami)' )
+    		->run();	
+	}
+
 
 	/**
 	 * 从 Mac 向 Ubuntu 部署一个通过 Git 更新的 Web 目录
@@ -51,7 +68,7 @@ class RoboFile extends \Robo\Tasks
 
 		// 在服务器上创建 Git 仓库
 		$this->taskSshExec( $ip , $user )
-    		->identityFile($ifile)
+    		//->identityFile($ifile)
     		->stopOnFail(true)
     		->exec( 'apt-get install git ' )
     		->exec( 'mkdir -p '.$remotegit )
@@ -234,11 +251,14 @@ class RoboFile extends \Robo\Tasks
 
 		$this->taskSshExec( $ip , $user )
     		->stopOnFail(true)
+			->exec('export LC_ALL=C')
 			->exec('apt-get update')
-			->exec('apt-get install -y python-gevent python-pip')
-			->exec('apt-get install  -y python-m2crypto')
-			->exec('pip install shadowsocks')
+			->exec('apt-get install -y python-pip')
+			->exec('apt-get install  -y libsodium-dev')
+			->exec('pip install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U')
 			->exec('nohup ssserver -c /root/ss.json  > log &')
     		->run();
-    }
+	}
+	
+
 }
